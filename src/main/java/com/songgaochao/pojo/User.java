@@ -3,6 +3,12 @@ package com.songgaochao.pojo;
 import java.util.Date;
 
 public class User {
+	/** ----------------扩展属性----------------- **/
+	
+	/** 扩展属性 **/
+	private String rePassword;
+	
+	/** ----------------数据字段----------------- **/
 	/**  **/
 	private Integer id;
 	/** 登录名称 **/
@@ -29,6 +35,14 @@ public class User {
 	private Date create_time;
 	/** 修改时间 **/
 	private Date update_time;
+	
+	
+	public String getRePassword() {
+		return rePassword;
+	}
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
 	public Integer getId() {
 		return id;
 	}

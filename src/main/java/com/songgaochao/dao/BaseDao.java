@@ -6,32 +6,49 @@ import org.apache.ibatis.annotations.Param;
 
 public interface BaseDao<T> {
 
-	/**select
-	 * 按条件查询
-	 * @param user
-	 * @return
-	 */
-	List<T> selectu(T t);
 	/**
-	 * ID查询
-	 * @param id
-	 * @return
+	 * @Title: select   
+	 * @Description: 按条件查询   
+	 * @param: @param T
+	 * @param: @return      
+	 * @return: List<T>      
+	 * @throws
 	 */
-	T selectuid(T t);
+	List<T> select(T t);
 	/**
-	 * 新增
-	 * @param user
-	 * @return
+	 * @Title: selectById   
+	 * @Description: 根据Id查询   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: T      
+	 * @throws
 	 */
-	int insertu(T t);
+	T selectById(Integer id);
 	/**
-	 * 修改
-	 * @param user
-	 * @return
+	 * @Title: insert   
+	 * @Description: 新增   
+	 * @param: @param t
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
 	 */
-	int updateu(T t);
+	int insert(T t);
 	/**
-	 * 删除
+	 * @Title: update   
+	 * @Description: 修改   
+	 * @param: @param t
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
 	 */
-	int deleteu(@Param("ids") String ids);
+	int update(T t);
+	/**
+	 * @Title: delete   
+	 * @Description: 删除   
+	 * @param: @param ids
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
+	int delete(@Param("ids") String ids);
 }

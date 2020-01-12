@@ -3,11 +3,11 @@
 <%
 	String fieldName = request.getParameter("fieldName");
 	String fieldValue =  request.getParameter("fieldValue");
-	fieldValue = (fieldValue==null || "".equals(fieldValue))?"/public/img/upload.jpg":fieldValue;
+	String fieldValueStr = fieldValue==null || "".equals(fieldValue)?"/public/img/upload.jpg":fieldValue;
 %>
 <div class="input-prepend">
 	<div class="imgDive">
-		<img src="<%=fieldValue %>" class="img-rounded" width="80px;" id="viewImg">
+		<img src="<%=fieldValueStr %>" class="img-rounded" width="80px;" id="viewImg">
 		<div style="display: none;" id="imageuploadDiv" name="imageuploadDiv">
 			<input type="file" id="fileName" name="fileName"><br> 
 			<input type="hidden" id="<%=fieldName %>" name="<%=fieldName %>" value="<%=fieldValue%>">
@@ -36,7 +36,7 @@ $("#fileName").on("change",function(){
 			success: function(res){
 				console.log(res);
 				$("#viewImg").attr("src",res.url);
-				$("#picture").val(res.url);
+				$("#<%=fieldName %>").val(res.url);
 			}
 		});
 	})

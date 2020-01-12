@@ -26,7 +26,7 @@ KindEditor.ready(function(K) {});
 				<div class="nav flex-column nav-pills" aria-orientation="vertical">
 					<a class="nav-link active" href="javascript:;" url="/article/add">发布文章</a>
 					<a class="nav-link" href="javascript:;" url="/article/articles">我的文章</a> 
-					<a class="nav-link"	href="javascript:;" url="/article/comment">我的评论</a>
+					<a class="nav-link"	href="javascript:;" url="/user/set">个人设置</a>
 				</div>
 			</div>
 			<div class="col-8" id="main">
@@ -37,6 +37,6 @@ KindEditor.ready(function(K) {});
 	</div>
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script>
-	<script src="/public/js/cms.js?v=1.0.0"></script>
+	<script src="/public/js/cms.js"></script>
 </body>
 </html>
