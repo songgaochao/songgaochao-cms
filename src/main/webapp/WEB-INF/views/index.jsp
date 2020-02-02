@@ -100,30 +100,62 @@
 				<div class="right">
 					<div>最热文章</div>
 					<ul class="list-unstyled">
+					<c:forEach items="${pageInfo.list }" var="item" varStatus="status">
+					  	<div class="media">
+					  		<a href="/article/detail/${item.id}.html" target="_blank">
+						  		<img src="${item.picture }" style="height: 72px; width: 72px;" class="mr-3" alt="...">
+						  	</a>
+						  <div class="media-body">
+						    <h5 class="mt-1">
+						    	<a href="/article/detail/${item.id}.html" target="_blank">${item.title }</a>
+						    </h5>
+						  </div>
+						</div>
+					</c:forEach>
+					
 						<li class="media"><img
 							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
 							style="height: 72px; width: 72px;" class="mr-3" alt="...">
 							<div class="media-body">
 								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
 							</div></li>
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
-							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
-							</div></li>
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
-							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
-							</div></li>
+						
 					</ul>
 				</div>
 			</div>
 
 		</div>
+		<div>
+		<table class="table table">
+		<tr >
+		<td>
+		友情链接：
+		</td>
+		<td >
+		<a href="https://www.toutiao.com/">今日头条</a>
+		</td>
+		<td >
+		<a href="http://www.chinanews.com/">中国新闻网</a>
+		</td>
+		<td >
+		<a href="https://news.163.com/ ">网易新闻</a>
+		</td>
+		<td >
+		<a href="https://news.sina.com.cn/">新浪新闻</a>
+		</td>
+		<td >
+		<a href="https://www.ifeng.com/">凤凰网</a>
+		</td>
+		
+		</tr>
+		</table>
+		</div>
+		
 	</div>
+	
+	
+	
+	
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script>
 	<script type="text/javascript">

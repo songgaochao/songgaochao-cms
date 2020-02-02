@@ -129,4 +129,19 @@ public interface ArticleService {
 	 * @throws
 	 */
 	List<Article> getNewList(Integer pageSize);
+	
+	/**
+	 * @Title: getRelArticelList   
+	 * @Description:   根据频道Id和分类Id查询文章， 且文章Id不能等于articleId
+	 * @param: @param channelId
+	 * @param: @param cateId
+	 * @param: @param articleId
+	 * @param: @param pageSize
+	 * @param: @return      
+	 * @return: List<Article>      
+	 * @throws
+	 */
+	
+	List<Article> getRelArticelList(Integer channelId, Integer cateId, Integer articleId,Integer pageSize);
+
 }

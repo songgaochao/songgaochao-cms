@@ -167,5 +167,19 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleDao.select(article);
 	}
 
+	@Override
+	public List<Article> getRelArticelList(Integer channelId, Integer cateId, Integer articleId, Integer pageSize) {
+		Article article = new Article();
+		article.setChannel_id(channelId);
+		article.setCategory_id(cateId);
+		article.setId(articleId);
+		PageHelper.startPage(1, pageSize);
+		
+		List<Article> articlelist = articleDao.select(article);
+		
+		
+		return articlelist;
+	}
+
 	
 }

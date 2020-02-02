@@ -107,4 +107,6 @@ public class ArticleController {
 		articleService.deleteByIds(ids);
 		return JsonResult.sucess();
 	}
+	
+	
 }

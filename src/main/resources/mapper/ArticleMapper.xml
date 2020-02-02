@@ -11,6 +11,9 @@
 		<if test="hot!=null and hot!=''">
 			and hot=#{hot}
 		</if>
+		<if test="id!=null and id!=''">
+			and id!=#{id}
+		</if>
 		<if test="status!=null and status!=''">
 			and status=#{status}
 		</if>

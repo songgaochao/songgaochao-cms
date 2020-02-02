@@ -12,7 +12,14 @@ public class Comment {
 	/** 评论内容 **/
 	private String content;
 	/** 评论时间 **/
-	private Date created;
+	private String created;
+	
+	public String getCreated() {
+		return created;
+	}
+	public void setCreated(String created) {
+		this.created = created;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -38,12 +45,7 @@ public class Comment {
 		this.content = content;
 	}
 	
-	public Date getCreated() {
-		return created;
-	}
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+	
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", articleId=" + articleId + ", userId=" + userId + ", content=" + content

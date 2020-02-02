@@ -104,6 +104,11 @@ public class IndexController {
 		User user = userService.getById(article.getUser_id());
 		article.setNickname(user.getNickname());
 		model.addAttribute("article", article);
+		Integer pageSize;
+		/** 查询相关文章**/
+		List<Article> relArticelList = articleService.getRelArticelList(article.getChannel_id(),article.getCategory_id(),article.getId(),3 );
+		
+		model.addAttribute("relArticelList", relArticelList);
 		/** 设置文章点击量，若点击量大于20成为热点文章 **/
 		articleService.setHitsAndHot(id);
 		return "article-detail";
