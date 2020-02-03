@@ -35,15 +35,39 @@
 						${article.content }
 					</div>
 				</div>
+				<form id="commentForm">
 				
+				<c:if test="${userInfo==null }">
+					<div>
+						<span><a href="/user/login">请登录后，发表评论</a></span>
+					</div>
+				</c:if>
+				<c:if test="${userInfo!=null }">
+					<div class="row" style="margin-top: 20px;">
+							<input type="hidden" id="articleId" name="articleId" value="${article.id }">
+							<div class="col-8 form-group">
+							    <!-- <label for="exampleFormControlTextarea1">评论</label> -->
+							    <textarea class="form-control" id="content" name="content" rows="2" placeholder="请输入评论" style="height: 60px;width: 290px"></textarea>
+							</div>
+							<div class="col-4">
+								<button type="button" class="" onclick="submitComment();" style="height: 60px">发布</button>
+							</div>
+					</div>
+				</c:if>
 				<div>
-					<jsp:include page="./comment/postcomment.jsp"></jsp:include>
-				
+					<c:forEach items="${pageInfo.list }" var="item">
+						<div class="media">
+						  <img src="" class="mr-3" alt="..." style="width: 32px;">
+						  <div class="media-body">
+						    <h5 class="mt-0"> <fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></h5>
+						     ${item.content }
+						  </div>
+						</div>
+					</c:forEach>
 				</div>
+				
 				<div>
-				
-					<jsp:include page="./comment/commentlist.jsp"></jsp:include>
-				
+				 <jsp:include page="./common/page.jsp"></jsp:include>
 				</div>
 			</div>
 			
@@ -72,5 +96,30 @@
 	</div>
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	function submitComment(){
+		var formData = $("#commentForm").serialize();
+		console.log(formData);
+		$.post('/comment/add',formData,function(res){
+			if(res.result){
+				console.log("评论成功");
+				var href = location.href;
+				location.href=href.substring(0,href.indexOf('?'));
+			}else if(res.errorCode==10000){
+				alert(res.message);
+				location.href="/user/login"
+			}else{
+				console.log("评论失败");
+			}
+		})
+	}
+	
+	function gotoPage(pageNo){
+		var href = location.href;
+		href = href.substring(0,href.indexOf('?'));
+		console.log(href);
+		location.href=href+'?pageNum='+pageNo;
+	}
+	</script>
 </body>
 </html>

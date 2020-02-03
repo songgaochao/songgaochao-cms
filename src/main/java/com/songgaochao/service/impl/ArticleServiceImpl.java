@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.songgaochao.common.utils.RandomUtil;
 import com.songgaochao.dao.ArticleDao;
 import com.songgaochao.dao.CategoryDao;
 import com.songgaochao.dao.ChannelDao;
@@ -181,5 +182,18 @@ public class ArticleServiceImpl implements ArticleService{
 		return articlelist;
 	}
 
+	@Override
+	public boolean updateCommentCnt(Integer id) {
+		Article article = articleDao.selectById(id);
+		article.setCommentCnt(article.getCommentCnt()+1);
+		return articleDao.update(article)>0;
+	}
+
+	@Override
+	public Integer getRandomArticleId() {
+		List<Integer> articleIdList = articleDao.selectIdList();
+		int random = RandomUtil.random(0, articleIdList.size()-1);
+		return articleIdList.get(random);
+	}
 	
 }

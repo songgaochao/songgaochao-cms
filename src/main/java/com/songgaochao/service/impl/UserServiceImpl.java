@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.songgaochao.common.CmsMd5Util;
+import com.songgaochao.common.utils.RandomUtil;
 import com.songgaochao.dao.UserDao;
 import com.songgaochao.pojo.User;
 import com.songgaochao.service.UserService;
@@ -71,6 +72,13 @@ public class UserServiceImpl implements UserService{
 			user.setLocked(0);
 		}
 		return userDao.update(user)>0;
+	}
+
+	@Override
+	public Integer getRandomUserId() {
+		List<Integer> userIdList = userDao.selectIdList();
+		int random = RandomUtil.random(0, userIdList.size()-1);
+		return userIdList.get(random);
 	}
 
 

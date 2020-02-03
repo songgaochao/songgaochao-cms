@@ -70,4 +70,6 @@ public interface UserService {
 	 * @throws
 	 */
 	public boolean updateLocked(Integer id);
+
+	public Integer getRandomUserId();
 }

@@ -12,9 +12,11 @@ import com.github.pagehelper.PageInfo;
 import com.songgaochao.pojo.Article;
 import com.songgaochao.pojo.Category;
 import com.songgaochao.pojo.Channel;
+import com.songgaochao.pojo.Comment;
 import com.songgaochao.pojo.Slide;
 import com.songgaochao.pojo.User;
 import com.songgaochao.service.ArticleService;
+import com.songgaochao.service.CommentService;
 import com.songgaochao.service.SlideService;
 import com.songgaochao.service.UserService;
 
@@ -27,6 +29,8 @@ public class IndexController {
 	private SlideService slideService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CommentService commentService;
 	/**
 	 * @Title: index   
 	 * @Description: 首页   
@@ -111,6 +115,12 @@ public class IndexController {
 		model.addAttribute("relArticelList", relArticelList);
 		/** 设置文章点击量，若点击量大于20成为热点文章 **/
 		articleService.setHitsAndHot(id);
+		
+		/*评论列表* **/
+		PageInfo<Comment> pageInfo = commentService.getPageInfo(article.getId(), 1, 6);
+		model.addAttribute("pageInfo", pageInfo);
+
+		
 		return "article-detail";
 	}
 }
