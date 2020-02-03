@@ -38,6 +38,7 @@ public class CommentController {
 		}
 		comment.setUserId(userInfo.getId());
 		commentService.add(comment);
+		
 		return JsonResult.sucess();
 	}
 

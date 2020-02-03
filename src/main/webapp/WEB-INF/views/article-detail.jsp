@@ -66,10 +66,10 @@
 						</div>
 					</c:forEach>
 				</div>
-				
-				<div>
-				 <jsp:include page="./common/page.jsp"></jsp:include>
-				</div>
+					
+					<div>
+					 <jsp:include page="./common/page.jsp"></jsp:include>
+					</div>
 			</div>
 			
 			<div class="col-3">
@@ -83,11 +83,8 @@
 										<div class="media-body">
 											<h5 class="mt-0 mb-1">${item.title }</h5>
 								</a>
-									</div></li>
+					</div></li>
 						</c:forEach>
-						
-						
-						
 					</ul>
 				</div>
 			</div>
