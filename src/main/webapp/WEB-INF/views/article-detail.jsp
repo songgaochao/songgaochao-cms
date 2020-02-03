@@ -35,11 +35,12 @@
 						${article.content }
 					</div>
 				</div>
+				<hr style="height :10px;">
 				<form id="commentForm">
 				
 				<c:if test="${userInfo==null }">
 					<div>
-						<span><a href="/user/login">请登录后，发表评论</a></span>
+						<span><a href="/user/login">请登录后，发表评论...</a></span>
 					</div>
 				</c:if>
 				<c:if test="${userInfo!=null }">
@@ -57,9 +58,9 @@
 				<div>
 					<c:forEach items="${pageInfo.list }" var="item">
 						<div class="media">
-						  <img src="" class="mr-3" alt="..." style="width: 32px;">
+						  <img src="${item.headimg }" class="mr-3" alt="..." style="width: 32px;">
 						  <div class="media-body">
-						    <h5 class="mt-0"> <fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></h5>
+						    <h5 class="mt-0">${item.nickname } <fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate></h5>
 						     ${item.content }
 						  </div>
 						</div>
