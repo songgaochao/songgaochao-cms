@@ -48,10 +48,10 @@
 							<input type="hidden" id="articleId" name="articleId" value="${article.id }">
 							<div class="col-8 form-group">
 							    <!-- <label for="exampleFormControlTextarea1">评论</label> -->
-							    <textarea class="form-control" id="content" name="content" rows="2" placeholder="请输入评论" style="height: 60px;width: 290px"></textarea>
+							    <textarea class="form-control" id="content" name="content" rows="2" placeholder="请输入评论" style="height: 60px"></textarea>
 							</div>
 							<div class="col-4">
-								<button type="button" class="" onclick="submitComment();" style="height: 60px">发布</button>
+								<button type="button" class="" onclick="submitComment();" style="height: 60px;width: 60px">发布</button>
 							</div>
 					</div>
 				</c:if>

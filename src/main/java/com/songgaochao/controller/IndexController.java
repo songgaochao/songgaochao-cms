@@ -83,7 +83,7 @@ public class IndexController {
 	public String channel(Model model,@PathVariable Integer channelId,@PathVariable Integer cateId,@PathVariable Integer pageNum) {
 		List<Channel> channelList = articleService.getChannelAll();
 		List<Slide> slideList = slideService.getAll();
-		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,2);
+		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,5);
 		List<Category> cateList = articleService.getCateListByChannelId(channelId);
 		Channel channel = articleService.getChannelByChannelId(channelId);
 		List<Article> newArticleList = articleService.getNewList(6);
