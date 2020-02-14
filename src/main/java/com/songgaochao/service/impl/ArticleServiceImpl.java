@@ -195,5 +195,12 @@ public class ArticleServiceImpl implements ArticleService{
 		int random = RandomUtil.random(0, articleIdList.size()-1);
 		return articleIdList.get(random);
 	}
+
+	@Override
+	public PageInfo<Article> gethotPageInfo(Article article, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Article> articleList = articleDao.select(article);
+		return new PageInfo<>(articleList);
+	}
 	
 }

@@ -73,10 +73,24 @@
 			</div>
 			
 			<div class="col-3">
-				<div class="right">
-					<div>相关文章</div>
+				<div class="right" style="margin-top: 40px">
+					<div class="card-header" style="text-align: center;">相关文章</div
 					<ul class="list-unstyled">
 						<c:forEach items="${relArticelList }" var="item">
+								<li class="media">
+								<a href="/article/detail/${item.id }.html" target="_blank">
+									<img src="${item.picture}"style="height: 72px; width: 72px;" class="mr-3" alt="...">							
+										<div class="media-body">
+											<h5 class="mt-0 mb-1">${item.title }</h5>
+								</a>
+					</div></li>
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="right" style="margin-top: 30px">
+					<div class="card-header" style="text-align: center;">热文推荐</div
+					<ul class="list-unstyled">
+						<c:forEach items="${hotpageInfo.list }" var="item">
 								<li class="media">
 								<a href="/article/detail/${item.id }.html" target="_blank">
 									<img src="${item.picture}"style="height: 72px; width: 72px;" class="mr-3" alt="...">							

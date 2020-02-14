@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${channel!=null?channel.name:'首页' }</title>
+
 <link href="/public/css/bootstrap.min.css" rel="stylesheet">
 <link href="/public/css/index.css" rel="stylesheet">
 </head>
@@ -82,11 +83,12 @@
 				</div>
 				<!-- 分页 -->
 				<jsp:include page="./common/page.jsp"></jsp:include>
+								
 			</div>
 			<!-- 首页右侧 -->
 			<div class="col-3">
 				<div class="right">
-					<div>最新文章</div>
+					<div class="card-header" style="text-align: center;">最新文章</div
 					<ul class="list-unstyled">
 						<c:forEach items="${newArticleList }" var="item">
 						<li class="media">
@@ -98,9 +100,9 @@
 					</ul>
 				</div>
 				<div class="right">
-					<div>最热文章</div>
+					<div class="card-header" style="text-align: center;">24小时热文</div>
 					<ul class="list-unstyled">
-					<c:forEach items="${pageInfo.list }" var="item" varStatus="status">
+					<c:forEach items="${hotpageInfo.list }" var="item" varStatus="status">
 					  	<div class="media">
 					  		<a href="/article/detail/${item.id}.html" target="_blank">
 						  		<img src="${item.picture }" style="height: 72px; width: 72px;" class="mr-3" alt="...">
@@ -112,14 +114,7 @@
 						  </div>
 						</div>
 					</c:forEach>
-					
-						<li class="media"><img
-							src="http://p1.pstatp.com/large/pgc-image/4ab237b9682f4c0286da5c5e6823dc87"
-							style="height: 72px; width: 72px;" class="mr-3" alt="...">
-							<div class="media-body">
-								<h5 class="mt-0 mb-1">电子眼全面升级，新增5项功能！</h5>
-							</div></li>
-						
+											
 					</ul>
 				</div>
 			</div>

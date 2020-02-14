@@ -1,5 +1,6 @@
 package Test;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
@@ -12,7 +13,6 @@ import com.github.pagehelper.PageInfo;
 import com.songgaochao.common.utils.DataUtil;
 import com.songgaochao.common.utils.RandomUtil;
 import com.songgaochao.common.utils.StringUtil;
-import com.songgaochao.dao.CommentDao;
 import com.songgaochao.pojo.Comment;
 import com.songgaochao.service.ArticleService;
 import com.songgaochao.service.CommentService;
@@ -66,5 +66,16 @@ public class CommentTests {
 			System.out.println(randomComment);
 			commentService.add(randomComment);
 		}
+	}
+	@Test
+	public void name() {
+		String randomChineseString = StringUtil. randomChineseString(100);
+		//System.out.println(randomChineseString);
+		
+		Date randomDate = DataUtil.randomDate(DataUtil.parse("2019-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss"), new Date());
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		System.out.println( format.format(randomDate));
+	//System.out.println(StringUtil.getRandomCharAndNumber(23));	
 	}
 }

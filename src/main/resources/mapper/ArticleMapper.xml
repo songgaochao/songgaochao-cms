@@ -30,6 +30,12 @@
 		<if test="statusStr!=null and statusStr!=''">
 			and status in(${statusStr})
 		</if>
+		
+		<!-- 查询某个时间段的文章 -->
+		<if test="created!=null">
+			and created between #{created} and now()
+		</if>
+		
 		order by created desc
 	</select>
 

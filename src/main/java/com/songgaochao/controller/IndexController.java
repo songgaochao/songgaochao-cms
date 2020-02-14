@@ -1,5 +1,7 @@
 package com.songgaochao.controller;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
+import com.songgaochao.common.utils.DataUtil;
 import com.songgaochao.pojo.Article;
 import com.songgaochao.pojo.Category;
 import com.songgaochao.pojo.Channel;
@@ -24,7 +27,6 @@ import com.songgaochao.service.UserService;
 
 @Controller
 public class IndexController {
-	private static final Integer pageNum = null;
 	@Autowired
 	private ArticleService articleService;
 	@Autowired
@@ -61,10 +63,23 @@ public class IndexController {
 		List<Slide> slideList = slideService.getAll();
 		PageInfo<Article> pageInfo = articleService.getHotList(pageNum,4);
 		List<Article> newArticleList = articleService.getNewList(6);
+		
+		//查询24小时热文
+				Article hot24article = new Article();
+				hot24article.setStatus(1);
+				hot24article.setHot(1);
+				
+				hot24article.setCreated(subDate(new Date()));
+							
+				PageInfo<Article> hotpageInfo = articleService.gethotPageInfo(hot24article, 1, 4);
+				model.addAttribute("hotpageInfo", hotpageInfo);
+		
 		model.addAttribute("channelList", channelList);
 		model.addAttribute("slideList", slideList);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("newArticleList", newArticleList);
+	
+		
 		return "index";
 	}
 	
@@ -83,14 +98,20 @@ public class IndexController {
 	public String channel(Model model,@PathVariable Integer channelId,@PathVariable Integer cateId,@PathVariable Integer pageNum) {
 		List<Channel> channelList = articleService.getChannelAll();
 		List<Slide> slideList = slideService.getAll();
+		
 		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,5);
+		
 		List<Category> cateList = articleService.getCateListByChannelId(channelId);
 		Channel channel = articleService.getChannelByChannelId(channelId);
 		List<Article> newArticleList = articleService.getNewList(6);
+		
+		
 		model.addAttribute("channelList", channelList);
 		model.addAttribute("cateList", cateList);
 		model.addAttribute("slideList", slideList);
+		
 		model.addAttribute("pageInfo", pageInfo);
+		
 		model.addAttribute("channel", channel);
 		model.addAttribute("newArticleList", newArticleList);
 		return "index";
@@ -118,6 +139,29 @@ public class IndexController {
 		/** 评论列表 **/
 		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 10);
 		model.addAttribute("pageInfo", commentPageInfo);
+		/**热文推荐**/
+		Article hotarticle = new Article();
+		hotarticle.setStatus(1);
+		hotarticle.setHot(1);
+							
+		PageInfo<Article> hotpageInfo = articleService.gethotPageInfo(hotarticle, 1, 10);
+		model.addAttribute("hotpageInfo", hotpageInfo);
+		
+		
 		return "article-detail";
 	}
+
+	 //把传入的日期向前 推减24 个小时。 即 1天
+		public static Date subDate(Date date) {
+			//用当前系统时间去实例化一个日历类
+			Calendar c = Calendar.getInstance();
+			//用传入的日期示例化日历类
+			c.setTime(date);
+			
+			//借助日历类，减去1天
+			c.add(Calendar.DATE, -1);
+			
+			return c.getTime();
+			
+		}
 }

@@ -145,5 +145,7 @@ public interface ArticleService {
 	List<Article> getRelArticelList(Integer channelId, Integer cateId, Integer articleId,Integer pageSize);
 	boolean updateCommentCnt(Integer articleId);
 	Integer getRandomArticleId();
+	
+	PageInfo<Article> gethotPageInfo(Article article,Integer pageNum, Integer pageSize);
 
 }
