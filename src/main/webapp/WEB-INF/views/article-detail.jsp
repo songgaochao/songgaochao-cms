@@ -25,14 +25,43 @@
 				tabindex="-1" aria-disabled="true">退出</a></li>
 		</ul>
 	</div>
+	
+	
 	<div class="container-fluid" style="margin-top: 6px;">
+		
 		<div class="row offset-1">
+	
 			<div class="col-6">
+			
 				<h1>${article.title }</h1>
 				<h3 style="color: #777;">${article.nickname }    发布时间：<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd日"/></h3>
+				
+				  <div>
+				  <div id="myCarousel" class="carousel slide">
+						  <ol class="carousel-indicators">
+						    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						    <li data-target="#myCarousel" data-slide-to="1"></li>
+						    <li data-target="#myCarousel" data-slide-to="2"></li>
+						  </ol>
+						  <!-- Carousel items -->
+						  <div class="carousel-inner">
+						    <div class="active item">
+						    <img src="${article.picture }" style="height: 300px; width: 600px;" class="mr-3" alt="...">
+							</div>
+						    <div class="item">..</div>
+						    <div class="item">…</div>
+						  </div>
+						  <!-- Carousel nav -->
+						  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+						  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+						</div>
+				  </div>
+				 			
 				<div>
+				<button style="border: none;color: red"  onclick="collect(1)">★ (已收藏)</button>
+				  <button style="border: none;"  onclick="collect(0)">☆ (未收藏)</button>
+				
 					<div class="article-content">
-						${article.content }
 					</div>
 				</div>
 				<hr style="height :10px;">
@@ -104,7 +133,16 @@
 			</div>
 
 		</div>
+		<div class="card-header" style="text-align: center;">
+		<tr>
+		<td><font size="2" color="#2F4F4F">本项目是大数据学院专高一，专高二教学练习项目，训练Maven + Edipse + SSM + Bootstrap集成方式进行项目开发管理 </font></td>		
+		</tr><br>
+		<hr style="margin-top: 1px" >
+		<tr>
+			<td>豪哥    mailto:<font size="2" color="blue">44287015@qq.com </font></td>
+		</tr>
 		
+		</div>
 	</div>
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
 	<script src="/public/js/bootstrap.min.js"></script>
@@ -131,6 +169,35 @@
 		href = href.substring(0,href.indexOf('?'));
 		console.log(href);
 		location.href=href+'?pageNum='+pageNo;
+	}
+	
+	function collect(flag) {
+		var url =window.location.href;
+		var text ='${article.title}';
+		if(flag==0){//收藏
+			$.post("/insert",{url:url,text:text},function(result){
+			 	if(result){
+			 		alert("收藏成功");
+			 		location.reload();//刷新当前页面
+			 		
+			 	}else{
+			 		alert("收藏失败")
+			 	}
+			})
+		}else{//取消收藏
+			var id='${collect.id}';
+	        $.post("/deletes",{id:id},function(result){
+	        	if(result){
+			 		alert("取消收藏成功")
+			 			location.reload();	//刷新当前页面
+			 	}else{
+			 		alert("取消收藏失败")
+			 	}
+			})	
+		}
+		
+		
+		
 	}
 	</script>
 </body>

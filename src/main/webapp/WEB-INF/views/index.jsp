@@ -117,10 +117,50 @@
 											
 					</ul>
 				</div>
+				<div class="right">
+					<div class="card-header" style="text-align: center;">最新图片</div>
+					<ul class="list-unstyled">
+					<c:forEach items="${newArticleList}" var="item" varStatus="status">
+					  	<div class="media">
+					  		<a href="/article/detail/${item.id}.html" target="_blank">
+						  		<img src="${item.picture }" style="height: 72px; width: 72px;" class="mr-3" alt="...">
+						  	</a>
+						  <div class="media-body">
+						 	<p style="color: #999;"><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+						 
+						  </div>
+						</div>
+					</c:forEach>
+											
+					</ul>
+				</div>
 			</div>
 
 		</div>
+		
+		<div id="carouselExampleControls" class="carousel slide"
+						data-ride="carousel">
+						<div class="carousel-inner" style="margin-left: 200px">
+							<c:forEach items="${newArticleList }" var="item" varStatus="status">
+								<div class="carousel-item <c:if test="${status.index==0 }">active</c:if>">
+									<a href="${status.index }" target="_blank" style="margin-left: 100px">${item.title }</a>
+									<a href="${status.index }" target="_blank"><img src="${item.picture }"   height="250px "   class="d-block w-50" alt="..."></a>
+									
+								</div>
+							</c:forEach>
+						</div>
+						<a class="carousel-control-prev" href="#carouselExampleControls"
+							role="button" data-slide="prev"> <span
+							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+							class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#carouselExampleControls"
+							role="button" data-slide="next"> <span
+							class="carousel-control-next-icon" aria-hidden="true"></span> <span
+							class="sr-only">Next</span>
+						</a>
+					</div>
 		<div>
+			
 		<table class="table table">
 		<tr >
 		<td>
@@ -146,6 +186,16 @@
 		</table>
 		</div>
 		
+		<div class="card-header" style="text-align: center;">
+		<tr>
+		<td><font size="2" color="#2F4F4F">本项目是大数据学院专高一，专高二教学练习项目，训练Maven + Edipse + SSM + Bootstrap集成方式进行项目开发管理 </font></td>		
+		</tr><br>
+		<hr style="margin-top: 1px" >
+		<tr>
+			<td>豪哥    mailto:<font size="2" color="blue">44287015@qq.com </font></td>
+		</tr>
+		
+		</div>
 	</div>
 	
 	

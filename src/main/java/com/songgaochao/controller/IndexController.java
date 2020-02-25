@@ -1,8 +1,12 @@
 package com.songgaochao.controller;
 
+import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,16 +14,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.songgaochao.common.utils.DataUtil;
+import com.songgaochao.common.CmsConst;
 import com.songgaochao.pojo.Article;
 import com.songgaochao.pojo.Category;
 import com.songgaochao.pojo.Channel;
+import com.songgaochao.pojo.Collect;
 import com.songgaochao.pojo.Comment;
 import com.songgaochao.pojo.Slide;
 import com.songgaochao.pojo.User;
 import com.songgaochao.service.ArticleService;
+import com.songgaochao.service.CollectService;
 import com.songgaochao.service.CommentService;
 import com.songgaochao.service.SlideService;
 import com.songgaochao.service.UserService;
@@ -35,6 +42,8 @@ public class IndexController {
 	private UserService userService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private CollectService collectService;
 	/**
 	 * @Title: index   
 	 * @Description: 首页   
@@ -84,6 +93,7 @@ public class IndexController {
 	}
 	
 	/**
+	 * @throws IOException 
 	 * @Title: channel   
 	 * @Description: 频道页   
 	 * @param: @param model
@@ -95,11 +105,11 @@ public class IndexController {
 	 * @throws
 	 */
 	@RequestMapping("/{channelId}/{cateId}/{pageNum}.html")
-	public String channel(Model model,@PathVariable Integer channelId,@PathVariable Integer cateId,@PathVariable Integer pageNum) {
+	public String channel(Model model,@PathVariable Integer channelId,@PathVariable Integer cateId,@PathVariable Integer pageNum) throws IOException {
 		List<Channel> channelList = articleService.getChannelAll();
 		List<Slide> slideList = slideService.getAll();
 		
-		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,5);
+		PageInfo<Article> pageInfo = articleService.getList(channelId,cateId,pageNum,10);
 		
 		List<Category> cateList = articleService.getCateListByChannelId(channelId);
 		Channel channel = articleService.getChannelByChannelId(channelId);
@@ -114,6 +124,9 @@ public class IndexController {
 		
 		model.addAttribute("channel", channel);
 		model.addAttribute("newArticleList", newArticleList);
+		
+		 
+		
 		return "index";
 	}
 	/**
@@ -126,7 +139,7 @@ public class IndexController {
 	 * @throws
 	 */
 	@RequestMapping("/article/detail/{id}.html")
-	public String articleDetail(@PathVariable Integer id,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,Model model) {
+	public String articleDetail(@PathVariable Integer id,@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,Model model,HttpSession session) {
 		Article article = articleService.getById(id);
 		User user = userService.getById(article.getUser_id());
 		article.setNickname(user.getNickname());
@@ -137,20 +150,25 @@ public class IndexController {
 		/** 设置文章点击量，若点击量大于20成为热点文章 **/
 		articleService.setHitsAndHot(id);
 		/** 评论列表 **/
-		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 10);
+		PageInfo<Comment> commentPageInfo = commentService.getPageInfo(article.getId(), pageNum, 4);
 		model.addAttribute("pageInfo", commentPageInfo);
 		/**热文推荐**/
 		Article hotarticle = new Article();
 		hotarticle.setStatus(1);
-		hotarticle.setHot(1);
-							
-		PageInfo<Article> hotpageInfo = articleService.gethotPageInfo(hotarticle, 1, 10);
+		hotarticle.setHot(1);		
+		PageInfo<Article> hotpageInfo = articleService.gethotPageInfo(hotarticle, 1, 6);
 		model.addAttribute("hotpageInfo", hotpageInfo);
-		
-		
+		/**用户收藏**/
+		User user1 = (User)session.getAttribute(CmsConst.UserSessionKey);
+		 if(null!= user1) {
+			Collect collect = collectService.selectByTitleAndUserId(article.getTitle(), user1.getId());
+			model.addAttribute("collect", collect);
+		 }
+			
 		return "article-detail";
 	}
 
+	
 	 //把传入的日期向前 推减24 个小时。 即 1天
 		public static Date subDate(Date date) {
 			//用当前系统时间去实例化一个日历类

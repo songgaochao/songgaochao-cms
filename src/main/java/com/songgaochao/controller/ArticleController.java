@@ -60,6 +60,7 @@ public class ArticleController {
 	public @ResponseBody JsonResult save(Article article,HttpSession session) {
 		User userInfo = (User)session.getAttribute(CmsConst.UserSessionKey);
 		article.setUser_id(userInfo.getId());
+		
 		articleService.save(article);
 		return JsonResult.sucess();
 	}
@@ -108,5 +109,21 @@ public class ArticleController {
 		return JsonResult.sucess();
 	}
 	
+	@RequestMapping("/picture")
+	public String pictureList() {
+		
+		return "article/picture";		
+	}
+	@RequestMapping("/topicture")
+	public boolean pictureList(Article article,HttpSession session) {
+		User userInfo = (User)session.getAttribute(CmsConst.UserSessionKey);
+		article.setUser_id(userInfo.getId());
+		
+		System.out.println(article);
+		 
+		return  articleService.save(article);
+		
+			
+	}
 	
 }

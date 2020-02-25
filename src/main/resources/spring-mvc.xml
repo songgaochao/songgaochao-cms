@@ -28,10 +28,10 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-<mvc:interceptors>
+   <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
-			<mvc:exclude-mapping path="/admin/**"/>
+			<mvc:exclude-mapping path="/admin/**"/>			
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/register"/>
 			<mvc:exclude-mapping path="/user/signOut"/>
@@ -39,13 +39,14 @@
 			<mvc:exclude-mapping path="/**/*.html"/>
 			<mvc:exclude-mapping path="/public/**"/>
 			<mvc:exclude-mapping path="/comment/**"/>
+			<mvc:exclude-mapping path="/collects/collects"/>
 			<bean class="com.songgaochao.common.UserAdminAuthInterceptor"></bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<mvc:exclude-mapping path="/admin/"/>
 			<mvc:exclude-mapping path="/admin/login"/>
-			<mvc:exclude-mapping path="/admin/signOut"/>
+			<mvc:exclude-mapping path="/admin/signOut"/>			
 			<bean class="com.songgaochao.common.UserAuthInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

@@ -1,9 +1,12 @@
 package com.songgaochao.pojo;
 
+import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.Date;
 
-public class Article {
-
+public class Article implements Readable {
+	
+	
 	/** 所属栏目 **/
 	private String channel_name;
 	/** 所属分类 **/
@@ -167,6 +170,16 @@ public class Article {
 				+ ", channel_id=" + channel_id + ", category_id=" + category_id + ", user_id=" + user_id + ", hits="
 				+ hits + ", hot=" + hot + ", status=" + status + ", deleted=" + deleted + ", created=" + created
 				+ ", updated=" + updated + ", commentCnt=" + commentCnt + ", tousuCnt=" + tousuCnt + "]";
+	}
+	@Override
+	public int read(CharBuffer cb) throws IOException {
+	
+		Article ar = new Article();
+		String title2 = ar.getTitle();
+		System.out.println(title2);
+		
+		
+		return 1;
 	}
 	
 
