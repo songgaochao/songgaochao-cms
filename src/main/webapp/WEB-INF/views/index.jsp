@@ -86,7 +86,20 @@
 								
 			</div>
 			<!-- 首页右侧 -->
+			
+			
 			<div class="col-3">
+			<div class="right">
+					<!--  搜索框 -->
+					<div class="card"
+						style="width: 18rem; margin-bottom: 5px; border: 0px;margin-top: 20px;margin-bottom: 20px;">
+						<div class="form-inline">
+							<input type="text" placeholder="请输入要搜索的内容" id="keyword" value="${keyword }" class="form-control"	style="width: 14rem; margin-right: 5px">
+							<button class="btn btn-info" type="button" onclick="search();">搜索</button>
+						</div>
+			
+					</div>
+			
 				<div class="right">
 					<div class="card-header" style="text-align: center;">最新文章</div
 					<ul class="list-unstyled">
@@ -138,67 +151,42 @@
 
 		</div>
 		
-		<div id="carouselExampleControls" class="carousel slide"
-						data-ride="carousel">
-						<div class="carousel-inner" style="margin-left: 200px">
-							<c:forEach items="${newArticleList }" var="item" varStatus="status">
-								<div class="carousel-item <c:if test="${status.index==0 }">active</c:if>">
-									<a href="${status.index }" target="_blank" style="margin-left: 100px">${item.title }</a>
-									<a href="${status.index }" target="_blank"><img src="${item.picture }"   height="250px "   class="d-block w-50" alt="..."></a>
-									
-								</div>
-							</c:forEach>
-						</div>
-						<a class="carousel-control-prev" href="#carouselExampleControls"
-							role="button" data-slide="prev"> <span
-							class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-							class="sr-only">Previous</span>
-						</a> <a class="carousel-control-next" href="#carouselExampleControls"
-							role="button" data-slide="next"> <span
-							class="carousel-control-next-icon" aria-hidden="true"></span> <span
-							class="sr-only">Next</span>
-						</a>
-					</div>
-		<div>
-			
-		<table class="table table">
-		<tr >
-		<td>
-		友情链接：
-		</td>
-		<td >
-		<a href="https://www.toutiao.com/">今日头条</a>
-		</td>
-		<td >
-		<a href="http://www.chinanews.com/">中国新闻网</a>
-		</td>
-		<td >
-		<a href="https://news.163.com/ ">网易新闻</a>
-		</td>
-		<td >
-		<a href="https://news.sina.com.cn/">新浪新闻</a>
-		</td>
-		<td >
-		<a href="https://www.ifeng.com/">凤凰网</a>
-		</td>
-		
-		</tr>
-		</table>
+		<div>			
+			<table class="table table">
+					<tr >
+					<td>
+					友情链接：
+					</td>
+					<td >
+					<a href="https://www.toutiao.com/">今日头条</a>
+					</td>
+					<td >
+					<a href="http://www.chinanews.com/">中国新闻网</a>
+					</td>
+					<td >
+					<a href="https://news.163.com/ ">网易新闻</a>
+					</td>
+					<td >
+					<a href="https://news.sina.com.cn/">新浪新闻</a>
+					</td>
+					<td >
+					<a href="https://www.ifeng.com/">凤凰网</a>
+					</td>
+					
+					</tr>
+			</table>
 		</div>
-		
-		<div class="card-header" style="text-align: center;">
+	</div>
+	
+	<div class="card-header" style="text-align: center;">
 		<tr>
 		<td><font size="2" color="#2F4F4F">本项目是大数据学院专高一，专高二教学练习项目，训练Maven + Edipse + SSM + Bootstrap集成方式进行项目开发管理 </font></td>		
 		</tr><br>
 		<hr style="margin-top: 1px" >
 		<tr>
 			<td>豪哥    mailto:<font size="2" color="blue">44287015@qq.com </font></td>
-		</tr>
-		
-		</div>
+		</tr>		
 	</div>
-	
-	
 	
 	
 	<script src="/public/js/jquery.min.1.12.4.js"></script>
@@ -213,6 +201,9 @@
 				location.href = '/'+channelId+'/'+cateId+'/'+pageNum+'.html';
 			}
 			
+		}
+		function search() {
+			window.open("/search?keyword="+$("#keyword").val());
 		}
 	</script>
 </body>

@@ -87,4 +87,8 @@
 		<property name="basePackage" value="com.songgaochao.dao"></property>
 
 	</bean>
+	<import resource="redis.xml"/>
+	<import resource="elasticsearch.xml"/>
+	<import resource="kafka-consumer.xml"/>
+	<import resource="kafka-producer.xml"/>
 </beans>

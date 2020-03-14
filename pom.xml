@@ -238,9 +238,65 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
+		<!-- redis -->
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>2.6.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-redis</artifactId>
+		    <version>1.4.1.RELEASE</version>
+		</dependency>
+		<!-- elaticSearch -->
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>6.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-client</artifactId>
+			<version>6.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.client</groupId>
+			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<version>6.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+		<!-- jsoup -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.12.1</version>
+		</dependency>
+        <!-- kafka -->
+		<dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>0.8.2.1</version>
+		</dependency>
+        <!-- fastjson -->
+        <dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.4</version>
+		</dependency>
 	</dependencies>
 	<!-- 构建项目 -->
 	<build>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<!-- mavend 编译插件 -->
@@ -307,7 +363,7 @@
 					<contextReloadable>true</contextReloadable>
 					<useTestClasspath>true</useTestClasspath>
 					<staticContextPath>/pic/</staticContextPath>
-					<staticContextDocbase>D:/pic/</staticContextDocbase>
+					<staticContextDocbase>E:/pic/</staticContextDocbase>
 					<!-- <staticContextPath>/img/</staticContextPath>
 					<staticContextDocbase>D:/pic/</staticContextDocbase> -->
 				</configuration>

@@ -2,8 +2,10 @@ package com.songgaochao.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -17,6 +19,7 @@ import com.songgaochao.pojo.Article;
 import com.songgaochao.pojo.Category;
 import com.songgaochao.pojo.Channel;
 import com.songgaochao.pojo.User;
+import com.songgaochao.respository.ArticleRepositroy;
 import com.songgaochao.service.ArticleService;
 
 @Service
@@ -29,6 +32,13 @@ public class ArticleServiceImpl implements ArticleService{
 	private CategoryDao categoryDao;
 	@Autowired
 	private UserDao userDao;
+	
+	@SuppressWarnings("rawtypes")
+	@Autowired
+	private RedisTemplate redisTemplate;
+	@Autowired
+	private ArticleRepositroy articleRepositroy;
+
 
 	@Override
 	public List<Channel> getChannelAll() {
@@ -103,10 +113,37 @@ public class ArticleServiceImpl implements ArticleService{
 		String[] idArr = ids.split(",");
 		for(String id:idArr) {
 			deleteById(Integer.parseInt(id));
+			Article article = new Article();
+			article.setId(Integer.parseInt(id));
+			articleRepositroy.delete(article);
 		}
 		return true;
 	}
-
+	@SuppressWarnings("unchecked")
+	public PageInfo<Article> getHotListByCache(int pageNum, int pageSize){
+		List<Article> list = null;
+		/** 只缓存第一页 **/
+		if(pageNum!=1) {
+			return getHotList(pageNum, pageSize);
+		}
+		/** 设置缓存的Key **/
+		String cacheKey = "1710fhotlist:"+pageNum;
+		/** redis是否已缓存了数据 **/
+		list = ((List<Article>)redisTemplate.opsForValue().get(cacheKey));
+		/** 如果已换成数据，则读redis数据直接返回 **/
+		if(list!=null && list.size()!=0) {
+			System.out.println("从缓存获取热点数据成功");
+			return new PageInfo<Article>(list);
+		}
+		/** 如果未换成数据，则查询数据库，并换成到redis，设置缓存时间 **/
+		PageInfo<Article> pageInfo = getHotList(pageNum, pageSize);
+		/** 设置缓存 **/
+		redisTemplate.opsForValue().set(cacheKey, pageInfo.getList());
+		redisTemplate.expire(cacheKey, 60, TimeUnit.SECONDS);
+		System.out.println("设置缓存数据成功");
+		
+		return pageInfo;
+	}
 	@Override
 	public PageInfo<Article> getHotList(int pageNum, int pageSize) {
 		Article article = new Article();
@@ -147,7 +184,16 @@ public class ArticleServiceImpl implements ArticleService{
 	public boolean check(Article article) {
 		Article article2 = articleDao.selectById(article.getId());
 		article2.setStatus(article.getStatus());
-		return articleDao.update(article2)>0;
+		boolean result = articleDao.update(article2)>0;
+		/** 审核通过，未删除的文章同步到索引库 **/
+		article = getById(article.getId());
+	    if(article.getStatus()==1 && article.getDeleted()==0) {
+	        articleRepositroy.save(article);
+	    }else {
+	        /** 否则从索引库删除 **/
+	        articleRepositroy.delete(article);
+	    }
+		return result;
 	}
 
 	@Override
@@ -201,6 +247,20 @@ public class ArticleServiceImpl implements ArticleService{
 		PageHelper.startPage(pageNum, pageSize);
 		List<Article> articleList = articleDao.select(article);
 		return new PageInfo<>(articleList);
+	}
+
+	@Override
+	public Integer getRandomChannelId() {
+		List<Integer> channelIdList = channelDao.selectIdList();
+		int random = RandomUtil.random(0, channelIdList.size()-1);
+		return channelIdList.get(random);
+	}
+
+	@Override
+	public Integer getRandomCateId(Integer channelId) {
+		List<Integer> cateIdList = categoryDao.selectIdList(channelId);
+		int random = RandomUtil.random(0, cateIdList.size()-1);
+		return cateIdList.get(random);
 	}
 	
 }

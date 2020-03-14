@@ -148,4 +148,16 @@ public interface ArticleService {
 	
 	PageInfo<Article> gethotPageInfo(Article article,Integer pageNum, Integer pageSize);
 
+	/**
+	 * 获取随机频道Id
+	 * @return
+	 */
+	Integer getRandomChannelId();
+	/**
+	 * 随机指定频道下的分类Id
+	 * @param channelId
+	 * @return
+	 */
+	Integer getRandomCateId(Integer channelId);
+
 }

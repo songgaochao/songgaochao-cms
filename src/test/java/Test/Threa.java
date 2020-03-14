@@ -27,8 +27,8 @@ public class Threa {
 		 		 CharBuffer put = allocate.put(article.getTitle());
 		 		
 		 		 
-		 		 int read = article.read(put);
-		 		 System.out.println(read);
+		 	//	 int read = article.read(put);
+		 	//	 System.out.println(read);
 		     }  
 		 }  
 		   

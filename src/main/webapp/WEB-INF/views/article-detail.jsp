@@ -36,27 +36,10 @@
 				<h1>${article.title }</h1>
 				<h3 style="color: #777;">${article.nickname }    发布时间：<fmt:formatDate value="${article.created }" pattern="yyyy-MM-dd日"/></h3>
 				
-				  <div>
-				  <div id="myCarousel" class="carousel slide">
-						  <ol class="carousel-indicators">
-						    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-						    <li data-target="#myCarousel" data-slide-to="1"></li>
-						    <li data-target="#myCarousel" data-slide-to="2"></li>
-						  </ol>
-						  <!-- Carousel items -->
-						  <div class="carousel-inner">
-						    <div class="active item">
+				  
+				 		<div class="active item">
 						    <img src="${article.picture }" style="height: 300px; width: 600px;" class="mr-3" alt="...">
-							</div>
-						    <div class="item">..</div>
-						    <div class="item">…</div>
-						  </div>
-						  <!-- Carousel nav -->
-						  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-						  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-						</div>
-				  </div>
-				 			
+						</div>	
 				<div>
 				<button style="border: none;color: red"  onclick="collect(1)">★ (已收藏)</button>
 				  <button style="border: none;"  onclick="collect(0)">☆ (未收藏)</button>
