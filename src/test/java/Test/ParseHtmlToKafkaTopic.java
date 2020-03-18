@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.codec.multipart.SynchronossPartHttpMessageReader;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -62,6 +63,7 @@ public class ParseHtmlToKafkaTopic {
 			Integer userId = userService.getRandomUserId();
 			article.setChannel_id(channelId);
 			article.setCategory_id(cateId);
+			
 			article.setUser_id(userId);
 			/** 设置文章对象的默认值：状态、删除、创建时间、更新时间 **/
 			article.setStatus(1);
@@ -69,6 +71,8 @@ public class ParseHtmlToKafkaTopic {
 			
 			
 			String articleJsonStr = JSON.toJSONString(article);
+			
+			System.out.println(articleJsonStr);
 			
 			kafkaTemplate.send("articleTopic", articleJsonStr);
 		}

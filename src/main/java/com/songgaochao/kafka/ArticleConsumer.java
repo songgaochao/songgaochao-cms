@@ -30,6 +30,7 @@ public class ArticleConsumer implements MessageListener<String, String>{
 		/** json字符串转Article对象 **/
 		Article article = JSON.parseObject(articleJsonStr, Article.class);
 		/** 保存到mysql的article表 **/
+		System.out.println(article+"1111111");
 		articleService.save(article);
 	}
 	

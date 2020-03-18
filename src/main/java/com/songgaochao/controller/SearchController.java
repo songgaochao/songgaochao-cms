@@ -18,6 +18,7 @@ import com.songgaochao.utils.EsUtils;
 /**
  * 搜索控制器
  */
+
 @Controller
 public class SearchController {
 	@Autowired
@@ -40,7 +41,7 @@ public class SearchController {
 		/** 友情链接 **/
 		List<Link> linkList = linkService.getLinkListAll();
 		model.addAttribute("linkList", linkList);
-		System.out.println(pageInfo+"1111111111111111111111");
+		
 		
 		return "search";
 	}

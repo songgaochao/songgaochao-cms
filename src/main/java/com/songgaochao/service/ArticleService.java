@@ -159,5 +159,6 @@ public interface ArticleService {
 	 * @return
 	 */
 	Integer getRandomCateId(Integer channelId);
+	List<Article> select();
 
 }

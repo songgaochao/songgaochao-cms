@@ -262,5 +262,10 @@ public class ArticleServiceImpl implements ArticleService{
 		int random = RandomUtil.random(0, cateIdList.size()-1);
 		return cateIdList.get(random);
 	}
+
+	@Override
+	public List<Article> select() {
+		return articleDao.select(null);
+	}
 	
 }
